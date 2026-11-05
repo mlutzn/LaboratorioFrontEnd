@@ -9,3 +9,11 @@ export interface LoginResponse {
   token_type: string;
   expires_in: number;
 }
+
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+}

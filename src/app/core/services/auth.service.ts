@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { LoginRequest, LoginResponse } from "../models/auth.model";
+import { LoginRequest, LoginResponse, RegisterRequest } from "../models/auth.model";
 import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
 
@@ -55,4 +55,8 @@ export class AuthService {
     localStorage.removeItem(this.TOKEN_KEY);
     this.router.navigate(['/login']);
   }
+
+  register(request: RegisterRequest): Observable<void> {
+  return this.http.post<void>(`${environment.apiUrl}/auth/register`, request);
+}
 }

@@ -1,1 +1,37 @@
-<p>usuario-list works!</p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Usuarios registrados</h2>
+  <a class="btn btn-success" routerLink="/register">Nuevo usuario</a>
+</div>
+
+@if (errorMessage) {
+  <div class="alert alert-danger">{{ errorMessage }}</div>
+}
+
+<table class="table table-striped table-hover align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>Usuario</th>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Rol</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (u of usuarios; track u.id) {
+      <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.firstName }} {{ u.lastName }}</td>
+        <td>{{ u.email }}</td>
+        <td>
+          <span class="badge" [class.bg-primary]="u.rol === 'SUPER-ADMIN-ROLE'" [class.bg-secondary]="u.rol !== 'SUPER-ADMIN-ROLE'">
+            {{ u.rol }}
+          </span>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="4" class="text-center text-muted">No hay usuarios</td>
+      </tr>
+    }
+  </tbody>
+</table>

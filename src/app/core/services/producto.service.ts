@@ -1,9 +1,31 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { Producto } from '../models/producto.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProductoService {
+  private http = inject(HttpClient);
+  private url = `${environment.apiUrl}/producto`;
 
-  constructor() { }
+  getAll(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.url);
+  }
+
+  getById(id: number): Observable<Producto> {
+    return this.http.get<Producto>(`${this.url}/${id}`);
+  }
+
+  create(producto: Producto): Observable<Producto> {
+    return this.http.post<Producto>(this.url, producto);
+  }
+
+  update(id: number, producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(`${this.url}/${id}`, producto);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`);
+  }
 }

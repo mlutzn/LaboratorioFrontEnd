@@ -1,1 +1,24 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand navbar-dark bg-dark px-3">
+  <span class="navbar-brand">Laboratorio</span>
+
+  <div class="navbar-nav me-auto">
+    @if (auth.isLoggedIn()) {
+      <a class="nav-link" routerLink="/categorias" routerLinkActive="active">Categorías</a>
+      <a class="nav-link" routerLink="/productos" routerLinkActive="active">Productos</a>
+      @if (auth.isAdmin()) {
+        <a class="nav-link" routerLink="/usuarios" routerLinkActive="active">Usuarios</a>
+      }
+    }
+  </div>
+
+  <div class="navbar-nav">
+    @if (auth.isLoggedIn()) {
+      <button type="button" class="btn btn-outline-light btn-sm" (click)="auth.logout()">
+        Cerrar sesión
+      </button>
+    } @else {
+      <a class="nav-link" routerLink="/login" routerLinkActive="active">Iniciar sesión</a>
+      <a class="nav-link" routerLink="/register" routerLinkActive="active">Registrarse</a>
+    }
+  </div>
+</nav>
